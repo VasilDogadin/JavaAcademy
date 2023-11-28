@@ -5,10 +5,7 @@ public class Main {
         ex1();
         ex2();
         ex3();
-
-        ex4("Колбаса", 2000);
-        ex4("Ветчина", 8511);
-        ex4("Шейка", 6988);
+        ex4(2000, 8511, 6988);
     }
 
     public static void ex1() {
@@ -50,41 +47,42 @@ public class Main {
         System.out.println("Индекс второй буквы о в строке = " + simply.indexOf('o', 3));
     }
 
-    public static void ex4(String productName, int kgSold) {
-        int price;
-        int costPrice;
 
-        if ("Колбаса".equals(productName)) {
-            price = 800;
-            costPrice = (kgSold < 1000) ? 412 : ((kgSold < 2000) ? 408 : 404);
-        } else if ("Ветчина".equals(productName)) {
-            price = 350;
-            costPrice = 275;
-        } else if ("Шейка".equals(productName)) {
-            price = 500;
-            costPrice = (kgSold < 500) ? 311 : 299;
+    public static void ex4(int kgSoldSausage, int kgSoldHam, int kgSoldNeck) {
+        int totalIncome = 0;
+        int totalExpense = 0;
+        int totalSumExpense;
+
+        int priceSausage = 800 * kgSoldSausage;
+        int costPriceSausage = (kgSoldSausage < 1000) ? 412 : ((kgSoldSausage < 2000) ? 408 : 404);
+        totalIncome += priceSausage;
+        totalExpense += costPriceSausage * kgSoldSausage;
+
+        int priceHam = 350 * kgSoldHam;
+        int costPriceHam = 275;
+        totalIncome += priceHam;
+        totalExpense += costPriceHam * kgSoldHam;
+
+        int priceNeck = 500 * kgSoldNeck;
+        int costPriceNeck = (kgSoldNeck < 500) ? 311 : 299;
+        totalIncome += priceNeck;
+        totalExpense += costPriceNeck * kgSoldNeck;
+
+        totalSumExpense = totalExpense + 1_000_000;
+
+        int totalProfitBeforeTaxes = totalIncome - totalSumExpense;
+
+        int totalTax;
+        if (totalProfitBeforeTaxes > 2_000_000) {
+            totalTax = (int) (totalProfitBeforeTaxes * 0.13);
+        } else if ((totalProfitBeforeTaxes > 1_000_000) && (totalProfitBeforeTaxes < 2_000_000)) {
+            totalTax = (int) (1_000_000 * 0.08) + (int) ((totalProfitBeforeTaxes - 1_000_000) * 0.10);
         } else {
-            System.out.println("Товар не найден");
-            return;
+            totalTax = (int) (totalProfitBeforeTaxes * 0.08);
         }
 
-        int income = price * kgSold;
-        int expenses = (costPrice * kgSold) + 1_000_000;
-        int profitBeforeTaxes = income - expenses;
-        int tax;
-
-        if (profitBeforeTaxes > 2_000_000) {
-            tax = (int) (profitBeforeTaxes * 0.13);
-        } else if ((profitBeforeTaxes > 1_000_000) && (profitBeforeTaxes < 2_000_000)) {
-            tax = (int) (profitBeforeTaxes * 0.10);
-        } else {
-            tax = (int) (profitBeforeTaxes * 0.8);
-        }
-
-        int profitAfterTaxes = profitBeforeTaxes - tax;
-
-        System.out.println("Товар: " + productName);
-        System.out.println("Прибыль после налогов: " + profitAfterTaxes + " руб.");
-        System.out.println("**********************************");
+        System.out.println("Общая прибыль компании: " + totalIncome + " руб.");
+        System.out.println("Уплаченные налоги компании: " + totalTax + " руб.");
     }
 }
+
