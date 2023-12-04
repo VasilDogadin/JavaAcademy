@@ -44,7 +44,7 @@ public class Main {
         String simply = "this is simply. This is my favorite song.".toLowerCase()
                 .replaceAll("this is", "those are");
         System.out.println(simply);
-        System.out.println("Индекс второй буквы о в строке = " + simply.indexOf('o', 3));
+        System.out.println("Индекс второй буквы о в строке = " + simply.indexOf('o', 19));
     }
 
 
