@@ -16,4 +16,12 @@ public class Item {
     public int getWeight() {
         return weight;
     }
+
+    public static String getTextItems(Item[] items) {
+        String text = "";
+        for (Item item : items) {
+            text += String.format("имя вещи: %S, вес вещи: %s\n", item.getName(), item.getWeight());
+        }
+        return text;
+    }
 }

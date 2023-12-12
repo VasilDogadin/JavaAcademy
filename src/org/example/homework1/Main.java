@@ -5,16 +5,17 @@ public class Main {
         ex1();
         ex2();
         ex3();
-        ex4(2000, 8511, 6988);
+        ex4();
     }
 
     public static void ex1() {
         String name = "     ПЕтРова Олег Иванович     ";
+        String formattedName = name.trim().toUpperCase(); //убирает пробелы, перевод в верхний регистр
 
-        if (name.contains("ова")) {
-            System.out.println("Уважаемая " + name.trim().toUpperCase());
-        } else if (name.contains("ов")) {
-            System.out.println("Уважаемый " + name.trim().toUpperCase());
+        if (formattedName.contains("ова ".toUpperCase())) { //проверка содержит "ова ", перевод в верхний регистр
+            System.out.println("Уважаемая " + formattedName);
+        } else if (formattedName.contains("ов ".toUpperCase())) { //проверка содержит "ов ", перевод в верхний регистр
+            System.out.println("Уважаемый " + formattedName);
         } else {
             System.out.println("Не известное лицо");
         }
@@ -30,9 +31,9 @@ public class Main {
         boolean isWheelWork4 = true;
 
         if (
-                !(fuel < 10)
+                fuel >= 10
                         && (isWheelWork1 && isWheelWork2 && isWheelWork3 && isWheelWork4)
-                        && !(hasErrors) && (isEngineWork)
+                        && !hasErrors && isEngineWork
         ) {
             System.out.println("Машина работает");
         } else {
@@ -41,48 +42,65 @@ public class Main {
     }
 
     public static void ex3() {
-        String simply = "this is simply. This is my favorite song.".toLowerCase()
-                .replaceAll("this is", "those are");
-        System.out.println(simply);
-        System.out.println("Индекс второй буквы о в строке = " + simply.indexOf('o', 19));
+        String simply = "this is simply. This is my favorite song.";
+        String replacedSimply = simply.toLowerCase().replaceAll("this is", "those are");
+        int indexOfO = replacedSimply.indexOf("o", replacedSimply.indexOf("o") + 1);
+        System.out.println(replacedSimply);
+        System.out.println("Индекс второй буквы о = " + indexOfO);
     }
 
+    public static void ex4() {
+        int sausagePrice = 800;
+        int sausageCount = 2000;
+        int sausageCost;
 
-    public static void ex4(int kgSoldSausage, int kgSoldHam, int kgSoldNeck) {
-        int totalIncome = 0;
-        int totalExpense = 0;
-        int totalSumExpense;
-
-        int priceSausage = 800 * kgSoldSausage;
-        int costPriceSausage = (kgSoldSausage < 1000) ? 412 : ((kgSoldSausage < 2000) ? 408 : 404);
-        totalIncome += priceSausage;
-        totalExpense += costPriceSausage * kgSoldSausage;
-
-        int priceHam = 350 * kgSoldHam;
-        int costPriceHam = 275;
-        totalIncome += priceHam;
-        totalExpense += costPriceHam * kgSoldHam;
-
-        int priceNeck = 500 * kgSoldNeck;
-        int costPriceNeck = (kgSoldNeck < 500) ? 311 : 299;
-        totalIncome += priceNeck;
-        totalExpense += costPriceNeck * kgSoldNeck;
-
-        totalSumExpense = totalExpense + 1_000_000;
-
-        int totalProfitBeforeTaxes = totalIncome - totalSumExpense;
-
-        int totalTax;
-        if (totalProfitBeforeTaxes > 2_000_000) {
-            totalTax = (int) (totalProfitBeforeTaxes * 0.13);
-        } else if ((totalProfitBeforeTaxes > 1_000_000) && (totalProfitBeforeTaxes < 2_000_000)) {
-            totalTax = (int) (1_000_000 * 0.08) + (int) ((totalProfitBeforeTaxes - 1_000_000) * 0.10);
+        if (sausageCount < 1000) {
+            sausageCost = 412;
+        } else if (sausageCount >= 1000 && sausageCount < 2000) {
+            sausageCost = 408;
         } else {
-            totalTax = (int) (totalProfitBeforeTaxes * 0.08);
+            sausageCost = 404;
         }
 
-        System.out.println("Общая прибыль компании: " + totalIncome + " руб.");
-        System.out.println("Уплаченные налоги компании: " + totalTax + " руб.");
+        int hamPrice = 350;
+        int hamCost = 275;
+        int hamCount = 8511;
+
+        int neckPrice = 500;
+        int neckCount = 6988;
+        int neckCost = neckCount < 500 ? 311 : 299;
+
+        int income = sausagePrice * sausageCost
+                + hamPrice * hamCount
+                + neckPrice * neckCount;
+
+        int overheads = 1_000_000;
+        int outcome = sausageCost * sausageCount
+                + hamCost * hamCount
+                + neckCost * neckCount
+                + overheads;
+
+        int profitBeforeTaxes = income - outcome;
+        double taxBeforeMillion = 0.08;
+        double taxBeforeTwoMillion = 0.10;
+        double taxAfterTwoMillion = 0.13;
+        int firstLimit = 1_000_000;
+        int secondLimit = 2_000_000;
+
+        double totalTax;
+        if (profitBeforeTaxes <= firstLimit) {
+            totalTax = profitBeforeTaxes * taxBeforeMillion;
+        } else if (profitBeforeTaxes > firstLimit && profitBeforeTaxes <= secondLimit) {
+            double totalTaxBeforeMillion = secondLimit * taxBeforeMillion;
+            totalTax = (profitBeforeTaxes - secondLimit) * taxBeforeTwoMillion + totalTaxBeforeMillion;
+        } else {
+            double totalTaxBeforeMillion = secondLimit * taxBeforeMillion;
+            double totalTaxBeforeTwoMillion = (secondLimit - firstLimit - 1) * taxBeforeTwoMillion + taxBeforeMillion;
+            totalTax = (profitBeforeTaxes - secondLimit) * taxAfterTwoMillion
+                    + totalTaxBeforeMillion + totalTaxBeforeTwoMillion;
+        }
+
+        System.out.println("Общая прибыль компании: " + (profitBeforeTaxes - totalTax) + " руб.");
     }
 }
 

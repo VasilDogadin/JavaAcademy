@@ -3,16 +3,14 @@ package org.example.homework2.shop;
 public class Worker {
     private String name;
     private int age;
-    private String gender;
-    private Item[] things; //Массив для хранения вещей
-    private int thingsCount; // количество вещей
+    private boolean isMale;
+    private Item[] items;
 
-    public Worker(String name, int age, String gender, int maxThings) {
+    public Worker(String name, int age, boolean isMale, Item[] items) {
         this.name = name;
         this.age = age;
-        this.gender = gender;
-        this.things = new Item[maxThings]; // макс вещей
-        this.thingsCount = 0;
+        this.isMale = isMale;
+        this.items = items;
     }
 
     public String getName() {
@@ -23,28 +21,17 @@ public class Worker {
         return age;
     }
 
-    public String getGender() {
-        return gender;
+    public boolean isMale() {
+        return isMale;
     }
 
-    public Item[] getThings() {
-        return things;
-    }
-
-    public int getThingsCount() {
-        return thingsCount;
-    }
-
-    public void addThing(Item item) {
-        if (thingsCount < things.length) {
-            things[thingsCount++] = item;
-        }
+    public Item[] getItems() {
+        return items;
     }
 
     public void showOffThings() {
-        for (int i = 0; i < thingsCount; i++) {
-            System.out.println(name + ": смотрите какая у меня вещь - " + things[i].getName() + " " +
-                    things[i].getWeight() + "гр.");
+        for (Item item : items) {
+            System.out.printf("%s: смотрите какая у меня вещь - %s\n", this.name, item.getName());
         }
     }
 }

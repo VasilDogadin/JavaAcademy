@@ -11,7 +11,6 @@ public class Main {
     }
 
     public static void ex1() {
-        System.out.println("");
         int[][] arrayOfNumbers = new int[10][10];
         arrayOfNumbers[0] = new int[]{131, 2, 3, 4, 5, 6, 7, 8, 9, 102};
         arrayOfNumbers[1] = new int[]{1, 20, 3, 4, 5, 6, 7, 8, 93, 10};
@@ -29,7 +28,7 @@ public class Main {
 
         for (int i = 0; i < arrayOfNumbers.length; i++) {
             leftUpToRightDownSum += arrayOfNumbers[i][i];
-            leftDownToRightUpSum += arrayOfNumbers[arrayOfNumbers.length - 1 - i][i];
+            leftDownToRightUpSum += arrayOfNumbers[arrayOfNumbers.length - i - 1][i];
         }
         System.out.println("Сумма диагонали от верхнего левого угла к нижнему правому = "
                 + leftUpToRightDownSum);
@@ -42,8 +41,8 @@ public class Main {
         int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         for (int i = 0; i < numbers.length / 2; i++) {
             int temp = numbers[i];
-            numbers[i] = numbers[numbers.length - 1 - i];
-            numbers[numbers.length - 1 - i] = temp;
+            numbers[i] = numbers[numbers.length - i - 1];
+            numbers[numbers.length - i - 1] = temp;
         }
         System.out.println(Arrays.toString(numbers));
         System.out.println("---------------------------");
@@ -51,16 +50,10 @@ public class Main {
 
     public static void ex3() {
         Random random = new Random(1);
-        int attempts = 0;
-        int number;
-
-        do {
-            number = random.nextInt(1000);
-            attempts++;
-        } while (number != 999);
-        System.out.println("Случайное число = 999");
-        System.out.println("Номер попытки = " + attempts);
-        System.out.print("---------------------");
+        int count = 1;
+        while (random.nextInt(1000) != 999) {
+            count++;
+        }
+        System.out.println(count);
     }
 }
-

@@ -4,19 +4,20 @@ public class Office {
     private Boss boss;
     private Manager manager;
     private Secretary secretary;
-    private SecurityGuard securityGuard;
+    private SecurityGuard security;
 
-    public Office(Boss boss, Manager manager, Secretary secretary, SecurityGuard securityGuard) {
+    public Office(Boss boss, Manager manager, Secretary secretary, SecurityGuard security) {
         this.boss = boss;
         this.manager = manager;
         this.secretary = secretary;
-        this.securityGuard = securityGuard;
+        this.security = security;
     }
 
     public void startWorkingDay() {
         boss.pushManager(manager);
         manager.scream();
-        securityGuard.askForAdvance();
-        secretary.calmDown(boss, manager, securityGuard);
+        security.askForAdvance();
+        secretary.calmDown(boss, manager, security);
+
     }
 }

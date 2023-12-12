@@ -12,7 +12,7 @@ public class Boss {
     }
 
     public void pushManager(Manager manager) {
-        System.out.println(manager.getName() + " быстрее!");
+        System.out.printf("%s быстрее!\n", manager.getName());
     }
 }
 
