@@ -1,20 +1,22 @@
 package org.example.homework3.ex1;
 
-public class Deciduous extends Tree {
-    protected boolean hasLeaves;
-    protected boolean canBloom;
+/**
+ * Лиственные
+ */
+public abstract class Deciduous extends Tree {
+    private boolean hasLeaves = true; // есть листья
 
-    public Deciduous(String name, int age, boolean hasLeaves, boolean canBloom) {
+    public Deciduous(String name, int age) {
         super(name, age);
-        this.hasLeaves = hasLeaves;
-        this.canBloom = canBloom;
     }
 
-    public void leavesBloom() {
-        if (hasLeaves && canBloom) {
-            System.out.println(getName() + " цветёт и выделяет аллергены");
-        } else {
-            System.out.println(getName() + " уже цвела или нет листьев");
-        }
+    // листья опадают
+    public void fallLeaves() {
+        this.hasLeaves = false;
+    }
+
+    // листья цветут
+    public void bloom() {
+        this.hasLeaves = true;
     }
 }

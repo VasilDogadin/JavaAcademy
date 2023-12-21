@@ -1,7 +1,10 @@
 package org.example.homework3.ex1;
 
-public class Conifer extends Tree {
-    protected String needleType;
+/**
+ * Хвойные
+ */
+public abstract class Conifer extends Tree {
+    private final String needleType;
 
     public Conifer(String name, int age, String needleType) {
         super(name, age);

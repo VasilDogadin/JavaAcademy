@@ -1,14 +1,18 @@
 package org.example.homework3.ex2;
 
+import org.example.homework3.ex2.factory.PhoneFactory;
+import org.example.homework3.ex2.phone.Iphone;
+import org.example.homework3.ex2.phone.SamsungGalaxy;
+
 public class Runner {
     public static void main(String[] args) {
-        Phone iphone = PhoneFactory.assembleIphone();
-        System.out.println("Собран iPhone");
-        iphone.printPhoneDetails();
-        System.out.println();
+        Iphone iphone = new Iphone();
+        SamsungGalaxy samsung = new SamsungGalaxy();
 
-        Phone samsung = PhoneFactory.assembleSamsung();
-        System.out.println("Собран Samsung");
-        samsung.printPhoneDetails();
+        PhoneFactory phoneFactory = new PhoneFactory();
+        phoneFactory.assembly(iphone);
+        phoneFactory.assembly(samsung);
+        System.out.println(iphone);
+        System.out.println(samsung);
     }
 }

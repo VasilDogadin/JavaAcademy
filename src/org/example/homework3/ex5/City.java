@@ -11,6 +11,18 @@ public final class City {
         this.houses = houses;
     }
 
+    public String getCityName() {
+        return cityName;
+    }
+
+    public House[] getHouses() {
+        House[] housesClone = new House[houses.length];
+        for (int i = 0; i < houses.length; i++) {
+            housesClone[i] = new House(houses[i].getStreetName(), houses[i].getHouseNumber());
+        }
+        return housesClone;
+    }
+
     @Override
     public String toString() {
         return "Город: " + cityName + Arrays.toString(houses);
